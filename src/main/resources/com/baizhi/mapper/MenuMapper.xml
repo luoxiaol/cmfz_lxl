@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.MenuDAO">
+
+    <select id="queryAll" resultMap="menu" >
+        select a.id aid,a.tittle atittle,a.iconCls aiconCls,a.url aurl,
+               b.id bid,b.tittle btittle,b.iconCls biconCls,b.url burl
+        from chi_menu a
+        LEFT JOIN chi_menu b
+        ON b.parentId=a.id
+        WHERE a.parentId=0
+
+    </select>
+    <resultMap id="menu" type="Menu">
+        <id column="aid" property="id"/>
+        <result column="atittle" property="tittle"/>
+        <result column="aiconCls" property="iconCls"/>
+        <result column="aurl" property="url"/>
+            <collection property="childList" ofType="Menu">
+                <id column="bid" property="id"/>
+                <result column="btittle" property="tittle"/>
+                <result column="biconCls" property="iconCls"/>
+                <result column="burl" property="url"/>
+            </collection>
+    </resultMap>
+
+</mapper>

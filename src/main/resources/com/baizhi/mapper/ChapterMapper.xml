@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDAO" >
+  <resultMap id="BaseResultMap" type="com.baizhi.entity.Chapter" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="tittle" property="tittle" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="VARCHAR" />
+    <result column="downPath" property="downpath" jdbcType="VARCHAR" />
+    <result column="uploadDate" property="uploaddate" jdbcType="TIMESTAMP" />
+    <result column="audioId" property="audioid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tittle, size, duration, downPath, uploadDate, audioId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from chi_chapter
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!--    查所有      -->
+  <select id="queryAll" resultType="Chapter">
+    select
+    <include refid="Base_Column_List" />
+    from chi_chapter
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from chi_chapter
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.baizhi.entity.Chapter" >
+    insert into chi_chapter (id, tittle, size, 
+      duration, downPath, uploadDate, 
+      audioId)
+    values (#{id,jdbcType=VARCHAR}, #{tittle,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{duration,jdbcType=VARCHAR}, #{downpath,jdbcType=VARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, 
+      #{audioid,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.baizhi.entity.Chapter" >
+    insert into chi_chapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tittle != null" >
+        tittle,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="downpath != null" >
+        downPath,
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate,
+      </if>
+      <if test="audioid != null" >
+        audioId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tittle != null" >
+        #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="downpath != null" >
+        #{downpath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audioid != null" >
+        #{audioid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Chapter" >
+    update chi_chapter
+    <set >
+      <if test="tittle != null" >
+        tittle = #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="downpath != null" >
+        downPath = #{downpath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audioid != null" >
+        audioId = #{audioid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Chapter" >
+    update chi_chapter
+    set tittle = #{tittle,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=VARCHAR},
+      downPath = #{downpath,jdbcType=VARCHAR},
+      uploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      audioId = #{audioid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
